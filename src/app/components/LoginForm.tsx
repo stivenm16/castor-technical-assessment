@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), ''], 'Passwords must match'),
 })
-const LoginForm = () => {
+export const LoginForm = () => {
   const {
     register,
     handleSubmit,
@@ -51,7 +51,7 @@ const LoginForm = () => {
     }
   }
   return (
-    <div className="bg-indigo-800 p-8 rounded-xl shadow-xl h-fit w-full mx-4 md:w-1/4   relative">
+    <div className="bg-indigo-800 p-8 rounded-xl shadow-xl h-fit w-full mx-4 md:w-1/5   relative">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 z-10">
         <div className="mb-4">
           <label htmlFor="email" className="block text-white font-bold mb-1">
@@ -134,5 +134,3 @@ const LoginForm = () => {
     </div>
   )
 }
-
-export default LoginForm

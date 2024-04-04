@@ -5,7 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   customStyles?: string
 }
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   onClick,
   label,
   children,
@@ -22,4 +22,3 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   )
 }
-export default Button

@@ -1,5 +1,7 @@
+import { ToDoContainer } from '@/app/components/ToDoContainer'
+
 const page = () => {
-  return <div>PrivatePage</div>
+  return <ToDoContainer />
 }
 
 export default page
