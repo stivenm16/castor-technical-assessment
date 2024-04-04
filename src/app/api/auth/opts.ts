@@ -1,4 +1,7 @@
+import { signOut } from 'next-auth/react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { auth } from '../../../../firebase'
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -8,28 +11,18 @@ export const authOptions = {
         password: { label: 'Password', type: 'password', placeholder: '*****' },
       },
       async authorize(credentials, req): Promise<any> {
-        // const userFound = await db.user.findUnique({
-        //   where: {
-        //     email: credentials.email,
-        //   },
-        // })
-        const userFound = {
-          userName: 'test',
-          email: '',
-        }
-        if (!userFound) throw new Error('No user found')
-
-        // const matchPassword = await bcrypt.compare(
-        //   credentials.password,
-        //   userFound.password,
-        // )
-
-        // if (!matchPassword) throw new Error('Wrong password')
-
-        return {
-          email: credentials?.email,
-          password: credentials?.password,
-        }
+        return await signInWithEmailAndPassword(
+          auth,
+          (credentials as any).email || '',
+          (credentials as any).password || '',
+        )
+          .then((userCredential) => {
+            if (userCredential.user) {
+              return userCredential.user
+            }
+            return null
+          })
+          .catch((error) => console.log(error))
       },
     }),
   ],
@@ -39,12 +32,8 @@ export const authOptions = {
       return token
     },
     async session({ session, user }: any) {
-      //   const userFound = await db.user.findUnique({
-      //     where: {
-      //       email: session.user.email,
-      //     },
-      //   })
-
+      console.log('session', session)
+      console.log('user', user)
       const userFound = {
         id: 1,
         userName: 'test',
@@ -58,5 +47,6 @@ export const authOptions = {
   },
   pages: {
     signIn: '/',
+    signOut: '/',
   },
 }

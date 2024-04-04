@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { Button } from '.'
+import { Button, Modal } from '.'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../../firebase'
+import { NextAuthError } from '../models'
 interface IFormInput {
   email: string
   password: string
@@ -14,7 +17,7 @@ interface IFormInput {
 
 const schema = yup.object().shape({
   email: yup.string().email().required('Email is a required field'),
-  password: yup.string().required('Password is a required field'),
+  password: yup.string().required('Password is a required field').min(6),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password'), ''], 'Passwords must match'),
@@ -27,31 +30,38 @@ export const LoginForm = () => {
   } = useForm<IFormInput>({ resolver: yupResolver(schema) })
 
   const [isRegister, setIsRegister] = useState(true)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<NextAuthError | null>(null)
   const router = useRouter()
   const onSubmit = async (data: IFormInput) => {
     if (data) {
       if (isRegister) {
-        // Cusotm logic for sign in
         const res = await signIn('credentials', {
           email: data.email,
           password: data.password,
           redirect: false,
         })
+
         if (res?.error) {
-          setError(res?.error)
+          setError(res as NextAuthError)
         } else {
           router.push('/auth/private')
           router.refresh()
         }
       } else {
-        // Custom logic for sign up
+        createUserWithEmailAndPassword(auth, data.email, data.password)
         setIsRegister(true)
       }
     }
   }
   return (
     <div className="bg-indigo-800 p-8 rounded-xl shadow-xl h-fit w-full mx-4 md:w-1/5   relative">
+      {error && (
+        <Modal isOpen={!!error} onClose={() => setError(null)}>
+          <p className="text-white text-center">
+            {error.status === 401 && 'Invalid Credentials'}
+          </p>
+        </Modal>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 z-10">
         <div className="mb-4">
           <label htmlFor="email" className="block text-white font-bold mb-1">
