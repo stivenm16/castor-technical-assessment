@@ -129,7 +129,7 @@ export const LoginForm = () => {
         )}
 
         <Button type="submit" customStyles="w-full">
-          Login
+          {isRegister ? 'Login' : 'Register'}
         </Button>
         <p className="text-white text-center pt-auto">
           {!isRegister ? 'Already have an account?' : "Don't have an account?"}
