@@ -1,38 +1,71 @@
-could you explain this code in one line above all it should be dev friendly due to it's a template
+# Todo App
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Overview
 
-## Getting Started
+This is a simple Todo application built using Next.js, Firebase for data storage, Tailwind CSS for styling, and our custom UI component library. The app allows users to create, update, delete, and mark tasks as completed.
 
-First, run the development server:
+## Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **Clone the repository**
+
+   ```bash
+   git clone git@github.com:stivenm16/castor-technical-assessment.git
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   cd castor-technical-assessment
+   npm install
+   ```
+
+3. **Set up Firebase**
+
+   - Create a Firebase project on the Firebase console.
+   - Set up Firestore database and Authentication.
+   - Copy your Firebase config and paste it in `firebase.js` file.
+
+4. **Run the app**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the app**
+   Open your browser and visit `http://localhost:3000` to view the application.
+
+## Features
+
+- **Create**: Users can add new tasks to their todo list.
+- **Update**: Tasks can be edited or marked as completed.
+- **Delete**: Users can remove tasks from the list.
+
+## Technologies Used
+
+- **Next.js**: React framework for building the frontend.
+- **Firebase**: Backend as a service for data storage and authentication.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Custom UI Component Library**: Reusable UI components built for this application. check it out in `https://playit-omega.vercel.app/`
+
+## Directory Structure
+
+```
+castor-technical-assessment/
+│
+├── hooks/            # Custom React hooks
+├── models/           # Data models or schemas
+├── providers/        # Context providers
+├── utils/            # Utility functions
+├── components/       # Reusable UI components
+├── api/              # API routes (for Next.js API routes)
+├── public/           # Public assets
+└── auth/             # Authentication components and routes for private pages
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Contributions are welcome! Feel free to submit pull requests or open issues for any improvements or features you'd like to see.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## License
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the [MIT License](LICENSE).
